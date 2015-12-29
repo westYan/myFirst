@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4C8119D81C32EA2F00A37E14 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8119D71C32EA2F00A37E14 /* main.m */; };
 		4C8119DB1C32EA2F00A37E14 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8119DA1C32EA2F00A37E14 /* AppDelegate.m */; };
-		4C8119DE1C32EA2F00A37E14 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8119DD1C32EA2F00A37E14 /* ViewController.m */; };
 		4C8119E31C32EA2F00A37E14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C8119E21C32EA2F00A37E14 /* Assets.xcassets */; };
 		4C8119E61C32EA2F00A37E14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C8119E41C32EA2F00A37E14 /* LaunchScreen.storyboard */; };
 		4C8119F11C32EA2F00A37E14 /* ZZWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8119F01C32EA2F00A37E14 /* ZZWeatherTests.m */; };
@@ -18,6 +17,8 @@
 		4C811A0E1C32FAA300A37E14 /* ZLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C811A0D1C32FAA300A37E14 /* ZLManager.m */; };
 		4C811A111C32FAB800A37E14 /* ZLCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C811A101C32FAB800A37E14 /* ZLCondition.m */; };
 		4C811A141C32FAD900A37E14 /* ZLDailyF.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C811A131C32FAD900A37E14 /* ZLDailyF.m */; };
+		4C8E59071C330FF20083B73F /* ZLData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8E59061C330FF20083B73F /* ZLData.m */; };
+		4C8E590A1C33102F0083B73F /* ZLStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C8E59091C33102F0083B73F /* ZLStatus.m */; };
 		BF952EBE5395CDDC2F75BB16 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FC25C6EC96BEA40217D035 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -44,8 +45,6 @@
 		4C8119D71C32EA2F00A37E14 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C8119D91C32EA2F00A37E14 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4C8119DA1C32EA2F00A37E14 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4C8119DC1C32EA2F00A37E14 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4C8119DD1C32EA2F00A37E14 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4C8119E21C32EA2F00A37E14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C8119E51C32EA2F00A37E14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C8119E71C32EA2F00A37E14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,6 +62,10 @@
 		4C811A101C32FAB800A37E14 /* ZLCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLCondition.m; sourceTree = "<group>"; };
 		4C811A121C32FAD900A37E14 /* ZLDailyF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLDailyF.h; sourceTree = "<group>"; };
 		4C811A131C32FAD900A37E14 /* ZLDailyF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLDailyF.m; sourceTree = "<group>"; };
+		4C8E59051C330FF20083B73F /* ZLData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLData.h; sourceTree = "<group>"; };
+		4C8E59061C330FF20083B73F /* ZLData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLData.m; sourceTree = "<group>"; };
+		4C8E59081C33102F0083B73F /* ZLStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLStatus.h; sourceTree = "<group>"; };
+		4C8E59091C33102F0083B73F /* ZLStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLStatus.m; sourceTree = "<group>"; };
 		A16EAB02F1F6B9476F5FE30F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E2FC25C6EC96BEA40217D035 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -122,8 +125,10 @@
 				4C8119DA1C32EA2F00A37E14 /* AppDelegate.m */,
 				4C811A091C32EBB600A37E14 /* ZLViewController.h */,
 				4C811A0A1C32EBB600A37E14 /* ZLViewController.m */,
-				4C8119DC1C32EA2F00A37E14 /* ViewController.h */,
-				4C8119DD1C32EA2F00A37E14 /* ViewController.m */,
+				4C8E59051C330FF20083B73F /* ZLData.h */,
+				4C8E59061C330FF20083B73F /* ZLData.m */,
+				4C8E59081C33102F0083B73F /* ZLStatus.h */,
+				4C8E59091C33102F0083B73F /* ZLStatus.m */,
 				4C8119E21C32EA2F00A37E14 /* Assets.xcassets */,
 				4C811A0C1C32FAA300A37E14 /* ZLManager.h */,
 				4C811A0D1C32FAA300A37E14 /* ZLManager.m */,
@@ -364,13 +369,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C8119DE1C32EA2F00A37E14 /* ViewController.m in Sources */,
+				4C8E59071C330FF20083B73F /* ZLData.m in Sources */,
 				4C8119DB1C32EA2F00A37E14 /* AppDelegate.m in Sources */,
 				4C811A141C32FAD900A37E14 /* ZLDailyF.m in Sources */,
 				4C811A0B1C32EBB600A37E14 /* ZLViewController.m in Sources */,
 				4C8119D81C32EA2F00A37E14 /* main.m in Sources */,
 				4C811A0E1C32FAA300A37E14 /* ZLManager.m in Sources */,
 				4C811A111C32FAB800A37E14 /* ZLCondition.m in Sources */,
+				4C8E590A1C33102F0083B73F /* ZLStatus.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
