@@ -41,7 +41,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{
-             @"date": @"dt",
+             @"myDate": @"dt",
              @"locationName": @"name",
              @"humidity": @"main.humidity",
              @"temperature": @"main.temp",

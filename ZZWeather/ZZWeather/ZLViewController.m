@@ -8,11 +8,16 @@
 
 #import "ZLViewController.h"
 #import <LBBlurredImage/UIImageView+LBBlurredImage.h>
+#import "ZLManager.h"
+
 @interface ZLViewController()
 @property (nonatomic ,strong) UIImageView *backgroudImage;
 @property (nonatomic ,strong) UIImageView *blueredImageView;
 @property (nonatomic ,strong) UITableView *tableView;
 @property (nonatomic ,assign) CGFloat screenH;
+
+@property (nonatomic ,strong) NSDateFormatter *hourlyFormatter;
+@property (nonatomic ,strong) NSDateFormatter *dailyFormatter;
 @end
 @implementation ZLViewController
 
@@ -96,8 +101,43 @@
     iconView.contentMode = UIViewContentModeScaleAspectFit;
     iconView.backgroundColor = [UIColor clearColor];
     [header addSubview:iconView];
-
     
+//
+    [[RACObserve([ZLManager sharedManager],currentCondition)
+     deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(ZLCondition *newOne) {
+        
+        if (newOne) {
+            
+        temperatureLable.text = [NSString stringWithFormat:@"%.0f",newOne.temperature.floatValue - 273.15];
+        
+        conditionsLabel.text = [newOne.locationName capitalizedString];
+        
+        cityLabel.text = [newOne.locationName capitalizedString];
+        
+        iconView.image = [UIImage imageNamed:[newOne imageName]];
+    }
+    }];
+//
+    RAC(hiloLable,text) = [[RACSignal combineLatest:@[
+                RACObserve([ZLManager sharedManager], currentCondition.tempHigh),
+                RACObserve([ZLManager sharedManager], currentCondition.tempLow)] reduce:^(NSNumber *hi ,NSNumber *low){
+                    return  [NSString stringWithFormat:@"%.0f° / %.0f°",hi.floatValue - 273.15,low.floatValue - 273.15];
+                }]
+                           deliverOn:RACScheduler.mainThreadScheduler];
+    
+//
+    [[RACObserve([ZLManager sharedManager], hourlyF) deliverOn:RACScheduler.mainThreadScheduler]
+     subscribeNext:^(NSArray *newF) {
+        
+         [self.tableView reloadData];
+    }];
+    
+    [[RACObserve([ZLManager sharedManager], dailyF) deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(NSArray *newF) {
+        [self.tableView reloadData];
+        
+    }];
+//    
+    [[ZLManager sharedManager] findCurrentLocation];
     
 }
 
@@ -112,6 +152,18 @@
 
 }
 
+- (id)init{
+
+    if (self = [super init]) {
+        _hourlyFormatter = [NSDateFormatter new];
+        _hourlyFormatter.dateFormat = @"h a";
+        
+        _dailyFormatter = [NSDateFormatter new];
+        _dailyFormatter.dateFormat = @"EEEE";
+    }
+    
+    return self;
+}
 
 // 1
 #pragma mark - UITableViewDataSource
@@ -123,7 +175,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // TODO: Return count of forecast
-    return 0;
+    if (section == 0) {
+        return MIN([[ZLManager sharedManager].hourlyF count], 6) + 1;
+    }
+    return MIN([[ZLManager sharedManager].dailyF count], 6) + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -141,6 +196,12 @@
     cell.detailTextLabel.textColor = [UIColor whiteColor];
     
     // TODO: Setup the cell
+//    if (indexPath.section == 0) {
+//        if (indexPath.row == 0) {
+//            [self confi]
+//        }
+//    }
+//    
     
     return cell;
 }
@@ -149,7 +210,49 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     // TODO: Determine cell height based on screen
-    return 44;
+    NSInteger cellCount = [self tableView:tableView numberOfRowsInSection:indexPath.section];
+    return self.screenH / (CGFloat)cellCount;
+}
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+
+    CGFloat height = scrollView.bounds.size.height;
+    CGFloat position = MAX( scrollView.contentOffset.y, 0.0);
+    
+    CGFloat percent = MIN(position / height, 1.0);
+    
+    self.blueredImageView.alpha = percent;
+}
+
+//
+- (void)configureHeaderCell:(UITableViewCell *)cell title:(NSString *)title{
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
+    cell.textLabel.text = title;
+    cell.detailTextLabel.text = @"";
+    cell.imageView.image = nil;
+
+}
+
+- (void)configureHourlyCell:(UITableViewCell *)cell weather:(ZLCondition *)weather{
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    cell.textLabel.text = [self.hourlyFormatter stringFromDate:weather.myDate];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:18];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f",weather.temperature.floatValue - 273.15];
+    cell.imageView.image = [UIImage imageNamed:[weather imageName]];
+    cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+}
+
+- (void)configureDailyCell: (UITableViewCell *)cell weather:(ZLCondition *)weather{
+
+    cell.textLabel.font = [UIFont fontWithName:@"" size:18];
+    cell.textLabel.text = [self.dailyFormatter stringFromDate:weather.myDate];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"" size:18];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1f° / %.1f°",weather.tempLow.floatValue - 273.15,weather.tempHigh.floatValue - 273.15];
+    cell.imageView.image = [UIImage imageNamed:[weather imageName]];
+    cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+ 
 }
 
 @end

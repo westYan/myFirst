@@ -63,4 +63,46 @@
     }];
 }
 
+- (RACSignal *)fetchHourFForLocation:(CLLocationCoordinate2D)coordinate{
+    NSString *urlString = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&APPID=81eec370ed22e63fc599c357d5e109b4",coordinate.latitude, coordinate.longitude];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    return [[self fetchJSONFromURL:url] map:^id(NSDictionary *json) {
+        RACSequence *list = [json[@"list"] rac_sequence];
+        
+        return [[list map:^id( NSDictionary *item) {
+            return [MTLJSONAdapter modelOfClass:[ZLCondition class] fromJSONDictionary:json error:nil];
+        }] array];
+        
+    }];
+}
+- (RACSignal *)fetchCurrentConditionForLocation:(CLLocationCoordinate2D)coordinate{
+
+    NSString *urlString = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&APPID=81eec370ed22e63fc599c357d5e109b4",coordinate.latitude,coordinate.longitude];
+    NSLog(@"%f %f",coordinate.latitude,coordinate.longitude);
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    return [[self fetchJSONFromURL:url] map:^(NSDictionary *json) {
+        return [MTLJSONAdapter modelOfClass:[ZLCondition class] fromJSONDictionary:json error:nil];
+    }];
+}
+
+
+- (RACSignal *)fetchDailyFForLocation:(CLLocationCoordinate2D)coordinate{
+    NSString *urlString = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&",coordinate.latitude, coordinate.longitude];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    return [[self fetchJSONFromURL:url] map:^id(NSDictionary *json) {
+//
+        RACSequence *list = [json[@"list"] rac_sequence];
+//
+        return [[list map:^id( NSDictionary *item) {
+            
+            return [MTLJSONAdapter modelOfClass:[ZLDailyF class] fromJSONDictionary:json error:nil];
+            
+        }] array];
+    }];
+
+}
+
 @end
