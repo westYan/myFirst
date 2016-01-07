@@ -110,7 +110,7 @@
             
         temperatureLable.text = [NSString stringWithFormat:@"%.0f",newOne.temperature.floatValue - 273.15];
         
-        conditionsLabel.text = [newOne.locationName capitalizedString];
+        conditionsLabel.text = [newOne.conditionDescription capitalizedString];
         
         cityLabel.text = [newOne.locationName capitalizedString];
         
@@ -121,7 +121,7 @@
     RAC(hiloLable,text) = [[RACSignal combineLatest:@[
                 RACObserve([ZLManager sharedManager], currentCondition.tempHigh),
                 RACObserve([ZLManager sharedManager], currentCondition.tempLow)] reduce:^(NSNumber *hi ,NSNumber *low){
-                    return  [NSString stringWithFormat:@"%.0f° / %.0f°",hi.floatValue - 273.15,low.floatValue - 273.15];
+                    return  [NSString stringWithFormat:@"%.0f° / %.0f°",low.floatValue - 273.15,hi.floatValue - 273.15];
                 }]
                            deliverOn:RACScheduler.mainThreadScheduler];
     
